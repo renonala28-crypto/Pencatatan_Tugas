@@ -16,13 +16,35 @@
 - Belum diuji: koneksi ke proyek Supabase nyata, karena `.env.local` dan kredensial belum diberikan. Perintah lint belum tersedia di skrip proyek.
 - Berikutnya: Tahap 2, migrasi tabel `tasks`, batasan dan kebijakan Row Level Security.
 
-## 16 November 2026: Tahap 2, Database (menunggu penerapan)
+## 16 November 2026: Tahap 2, Database (selesai)
 
 - Membuat `supabase/migrations/20261116162900_create_tasks_table.sql` setelah memastikan belum ada folder atau migrasi Supabase sebelumnya.
 - Migrasi membuat tabel `public.tasks` dengan kolom, default, relasi pemilik, batasan nilai, dan batas panjang sesuai `spec.md`. RLS aktif dengan empat kebijakan operasi untuk `authenticated`; kebijakan UPDATE memakai `USING` dan `WITH CHECK` agar pemilik tidak dapat diganti. Hak tabel dicabut dari `anon` dan `PUBLIC`, lalu diberikan kepada `authenticated`.
 - Migrasi dibuat, menunggu dijalankan di Supabase.
-- Pemeriksaan saat ini berupa peninjauan isi SQL terhadap spesifikasi. Migrasi belum dijalankan karena belum ada hasil dari SQL Editor Supabase; kriteria penerapan belum ditandai selesai.
-- Berikutnya: jalankan migrasi di SQL Editor Supabase dan kirimkan hasilnya sebelum status penerapan diperbarui.
+- Pengguna mengirim hasil SQL Editor Supabase “Success. No rows returned” setelah menjalankan migrasi. Karena skrip yang dijalankan mencakup pembuatan tabel dan keempat kebijakan, migrasi dicatat sebagai diterapkan. Dashboard Supabase meminta sign-in saat dibuka melalui sesi asisten, sehingga hasil query `pg_policies` tidak diperiksa secara terpisah.
+- Berikutnya: Tahap 3, akun. Konfigurasi lokal Supabase masih belum tersedia, jadi pengujian autentikasi nyata tertunda.
+
+## 16 November 2026: Tahap 3, Akun (menunggu konfigurasi Supabase)
+
+- Membuat form masuk dan daftar Supabase Auth, menangani konfirmasi email, pemulihan sesi, tampilan beranda setelah masuk, dan keluar yang mengembalikan pengguna ke form masuk.
+- Verifikasi: `npm run build` berhasil. Browser diuji pada lebar 360 piksel tanpa overflow; Tab/Enter melewati ke konten; tombol Masuk/Daftar berpindah form; pengiriman tanpa konfigurasi memberi pesan jelas dan mempertahankan isian; tidak ada error JavaScript.
+- Belum diuji: pendaftaran dan konfirmasi email nyata, pemulihan sesi setelah refresh, serta keluar dari sesi Supabase, karena `.env.local` belum tersedia.
+- Berikutnya: isi `VITE_SUPABASE_URL` dan `VITE_SUPABASE_PUBLISHABLE_KEY` di `.env.local`, mulai ulang Vite, lalu uji alur akun sebelum menandai tahap ini selesai.
+
+## 16 November 2026: Lanjutan Tahap 3 (menunggu uji akun Supabase)
+
+- `.env.local` kini tersedia dan terdaftar sebagai file yang diabaikan Git. Nilainya tidak dibaca atau ditampilkan. Halaman memuat form tanpa peringatan konfigurasi; ini belum membuktikan bahwa kredensial valid.
+- Perubahan responsif di `src/styles.css`: menghapus lebar minimum tetap dan membiarkan tombol pilihan membungkus pada ruang sempit. Browser tidak menunjukkan overflow pada lebar 360 px atau viewport efektif 180 px untuk memeriksa reflow pada pembesaran 200%.
+- Verifikasi: `npm run build` berhasil. Tidak ada error JavaScript pada halaman. Tautan Akun mengubah alamat ke `#akun`; callback Masuk/Daftar mengubah judul formulir saat dipicu dari DOM.
+- Batas pengujian: klik pointer melalui alat browser gagal menghasilkan perubahan yang dapat diamati, meskipun elemen terlihat dan aktif. Karena itu klik nyata pada kontrol belum dinyatakan lulus. Pendaftaran, konfirmasi email, pemulihan sesi setelah refresh, dan keluar dengan akun Supabase juga belum diuji.
+- Berikutnya: uji sendiri pendaftaran dan konfirmasi email, masuk, refresh untuk memastikan sesi pulih, lalu keluar. Jangan kirim kata sandi atau nilai `.env.local` ke chat.
+
+## 16 November 2026: Perbaikan error pendaftaran
+
+- Pengguna melaporkan `Pendaftaran gagal: Failed to fetch`. Pemeriksaan format lokal tanpa menampilkan nilainya menemukan bahwa URL proyek dan key masih berupa nilai contoh. Sebelumnya aplikasi menganggap semua nilai non-kosong sebagai konfigurasi valid dan mencoba membuat request.
+- `src/lib/supabase.js` kini hanya membuat client untuk URL HTTPS proyek Supabase dan Publishable key berformat `sb_publishable_`. Form menampilkan variabel yang perlu diperbaiki dan tidak mengirim request jika konfigurasi belum valid.
+- Verifikasi: `npm run build` berhasil. Smoke test browser pada nilai contoh menampilkan peringatan konfigurasi; submit menghasilkan petunjuk pengaturan dan tidak memanggil endpoint Auth (`authRequests: []`).
+- Tahap 3 masih menunggu URL proyek dan Publishable key yang sebenarnya dimasukkan pengguna ke `.env.local`, lalu uji daftar/konfirmasi email, masuk, pemulihan sesi, dan keluar.
 
 ## Format entri berikutnya
 
