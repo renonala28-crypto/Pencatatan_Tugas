@@ -1,0 +1,254 @@
+:root {
+  font-family:
+    "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+  color: #252b29;
+  background: #f5f3eb;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-weight: 400;
+
+  --color-paper: #f5f3eb;
+  --color-surface: #fffefa;
+  --color-ink: #252b29;
+  --color-muted: #59615d;
+  --color-rule: #d7d6cc;
+  --color-accent: #82442f;
+  --radius-panel: 10px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  min-width: 320px;
+}
+
+body {
+  min-width: 320px;
+  min-height: 100vh;
+  margin: 0;
+}
+
+a[href],
+button,
+select,
+input[type="checkbox"],
+input[type="radio"],
+label[for] {
+  cursor: pointer;
+}
+
+a {
+  color: inherit;
+}
+
+a:hover {
+  color: var(--color-accent);
+}
+
+a:active {
+  color: #5e2e20;
+}
+
+a:focus-visible {
+  outline: 3px solid var(--color-accent);
+  outline-offset: 4px;
+}
+
+button:disabled,
+select:disabled,
+input:disabled {
+  cursor: not-allowed;
+}
+
+.page-shell {
+  display: flex;
+  flex-direction: column;
+  width: min(100% - 48px, 1040px);
+  min-height: 100vh;
+  margin-inline: auto;
+}
+
+.skip-link {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  z-index: 1;
+  padding: 10px 14px;
+  transform: translateY(-160%);
+  border-radius: 4px;
+  background: var(--color-ink);
+  color: var(--color-surface);
+}
+
+.skip-link:focus {
+  transform: translateY(0);
+}
+
+.site-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 76px;
+  border-bottom: 1px solid var(--color-rule);
+}
+
+.wordmark {
+  font-size: 1.1rem;
+  font-weight: 750;
+  letter-spacing: -0.045em;
+  text-decoration: none;
+}
+
+.nav-link {
+  display: inline-flex;
+  min-height: 44px;
+  align-items: center;
+  padding: 0 4px;
+  color: var(--color-muted);
+  font-size: 0.9rem;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 4px;
+}
+
+.main-content {
+  flex: 1;
+}
+
+.intro {
+  max-width: 680px;
+  padding-block: clamp(56px, 10vw, 108px) 62px;
+}
+
+.eyebrow,
+.section-index {
+  margin: 0 0 14px;
+  color: var(--color-accent);
+  font-size: 0.84rem;
+  font-weight: 650;
+}
+
+h1,
+h2,
+p {
+  margin-top: 0;
+}
+
+h1 {
+  max-width: 620px;
+  margin-bottom: 18px;
+  font-size: clamp(2.3rem, 6vw, 4.1rem);
+  font-weight: 650;
+  letter-spacing: -0.06em;
+  line-height: 1.08;
+}
+
+.intro-copy {
+  max-width: 500px;
+  margin-bottom: 0;
+  color: var(--color-muted);
+  font-size: clamp(1rem, 2vw, 1.15rem);
+  line-height: 1.65;
+}
+
+.configuration {
+  display: grid;
+  grid-template-columns: minmax(180px, 0.7fr) minmax(0, 1.3fr);
+  gap: 32px;
+  padding-block: 28px 44px;
+  border-top: 1px solid var(--color-rule);
+}
+
+.configuration-heading h2 {
+  margin-bottom: 0;
+  font-size: 1.25rem;
+  font-weight: 620;
+  letter-spacing: -0.025em;
+}
+
+.notice {
+  padding: 20px 22px;
+  border: 1px solid var(--color-rule);
+  border-radius: var(--radius-panel);
+  background: var(--color-surface);
+  color: var(--color-muted);
+  font-size: 0.94rem;
+  line-height: 1.6;
+}
+
+.notice-pending {
+  border-color: #c9ab9d;
+}
+
+.notice p:last-child {
+  margin-bottom: 0;
+}
+
+.notice-title {
+  margin-bottom: 6px;
+  color: var(--color-ink);
+  font-weight: 650;
+}
+
+.settings-list {
+  display: grid;
+  gap: 10px;
+  margin: 16px 0;
+  padding: 0;
+  list-style: none;
+}
+
+.settings-list li {
+  display: grid;
+  gap: 2px;
+}
+
+code {
+  color: #633b2c;
+  font-family: ui-monospace, "Cascadia Code", Consolas, monospace;
+  font-size: 0.88em;
+  overflow-wrap: anywhere;
+}
+
+.notice-footnote {
+  padding-top: 12px;
+  border-top: 1px solid #e7e5dd;
+  font-size: 0.88rem;
+}
+
+.site-footer {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  padding-block: 22px;
+  border-top: 1px solid var(--color-rule);
+  color: var(--color-muted);
+  font-size: 0.84rem;
+}
+
+.site-footer p {
+  margin-bottom: 0;
+}
+
+@media (max-width: 640px) {
+  .page-shell {
+    width: min(100% - 32px, 1040px);
+  }
+
+  .intro {
+    padding-block: 62px 52px;
+  }
+
+  .configuration {
+    grid-template-columns: 1fr;
+    gap: 18px;
+  }
+
+  .site-footer {
+    flex-direction: column;
+    gap: 6px;
+  }
+}
